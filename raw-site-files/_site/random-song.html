@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Random Song - pigantibiotics.com</title>
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <link rel="shortcut icon" type="image/png"
+           href="/favicon.png" 
+    />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Random Song | pigantibiotics.com</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Random Song" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Personal website for Joel Mataway and things I am interested in. Content will range from Linux administration to the Suns and anything in between." />
+<meta property="og:description" content="Personal website for Joel Mataway and things I am interested in. Content will range from Linux administration to the Suns and anything in between." />
+<link rel="canonical" href="http://localhost:4000/random-song" />
+<meta property="og:url" content="http://localhost:4000/random-song" />
+<meta property="og:site_name" content="pigantibiotics.com" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/random-song","description":"Personal website for Joel Mataway and things I am interested in. Content will range from Linux administration to the Suns and anything in between.","headline":"Random Song","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<!-- head scripts --></head>
+
+  <body>
+    
+<nav class="navbar is-primary" >
+    <div class="container">
+        <div class="navbar-brand">
+            <a href="/" class="navbar-item">
+                pigantibiotics.com
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu" id="navMenu">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item ">Home</a>
+                
+                
+                    
+                    <a href="/random-song.html" class="navbar-item ">Random Song</a>
+                    
+                
+                    
+                    <a href="/resume.html" class="navbar-item ">Resume</a>
+                    
+                
+                    
+                    <a href="/blog/index.html" class="navbar-item ">Blog</a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+        <section class="hero  is-medium  is-bold is-primary" >
+    <div class="hero-body">
+        <div class="container">
+            <p class="title is-2">Random Song</p>
+            <p class="subtitle is-3"></p>
+            
+        </div>
+    </div>
+</section>
+    
+    
+
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                
+                <div class="column is-12">
+                    
+                    
+                    
+<div class="content">
+    <h1 id="random-song-recommendation">Random Song Recommendation</h1>
+<p>I figure just about everyone loves music and I wanted to add some additional functionality to this site. So I built a quick way to share a song with anyone visiting. Click the "Get a random song!" button below to get a random song recommendation from a database of songs I created with this site. One of the songs in the list is the song I took the domain name from as well. If you have a song to share with me send me an email or reach out on my other socials! (And maybe I’ll get around to adding a feature to directly share one with me in the future.)</p>
+
+<button class="button  is-primary" type="submit" onclick="GetSongBetter()">Get a random song!</button>
+<p></p>
+<p><b>Song: </b><span id="song"></span></p>
+<p><b>Artist: </b><span id="artist"></span></p>
+<p><b>Album: </b><span id="album"></span> <span id="year"></span></p>
+<iframe id="flink" width = "1" height = "1"></iframe>
+
+<h3 id="how-it-works">How It Works</h3>
+<p>As a cloud computing enthusiast I wanted to build something I’m passionate about while using several different AWS Services together. This site (which is hosted on CloudFront and S3 - very original I know) hits API Gateway to communicate with a Lambda function. The Lambda fucntion selects a random song from the DynamoDB table with a single query operation rather than scanning the whole table (not that it matters with a table of this size). I also have a Python scirpt I run locally to scrape information about each song that I provide. This allows me to update the DynamoDB table without having to manually enter each song and the additional information about that song.</p>
+
+<p>If that all sounds like gibberish, the ELI5 version is: This page sends a message to a different computer which then sends a return message that includes a random song from a list of songs I provided it.</p>
+
+<script>
+    const GetSongBetter = async () => {
+    const response = await fetch('https://bh7q78usj3.execute-api.us-east-1.amazonaws.com/getRandomSong');
+    const myJson = await response.json();
+    console.log(myJson);
+    var songName = myJson.Song;
+    document.getElementById('song').innerHTML = songName;
+    var artistName = myJson.Artist;
+    document.getElementById('artist').innerHTML = artistName;
+    var albumName = myJson.Album;
+    document.getElementById('album').innerHTML = albumName;
+    var songYear = myJson.Year;
+    document.getElementById('year').innerHTML = songYear;
+    var songLink = myJson.YT;
+    document.getElementById('flink').src = "https://youtube.com/embed/"+ songLink;
+    document.getElementById('flink').width = "560";
+    document.getElementById('flink').height = "340";
+  }
+</script>
+
+</div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+        <footer class="footer">
+    <div class="container">
+        
+        
+
+        <div class="content is-small has-text-centered">
+            <p class="">Theme built by <a href="https://www.csrhymes.com">C.S. Rhymes</a></p>
+        </div>
+    </div>
+</footer>
+
+    
+    <script src="/assets/js/app.js" type="text/javascript"></script><!-- footer scripts --></body>
+</html>
+

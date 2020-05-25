@@ -1,5 +1,6 @@
+- name: Random Song
+  link: /random-song.html
 - name: Resume
   link: /resume.html
 - name: Blog
   link: /blog/index.html
-
