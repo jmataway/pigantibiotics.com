@@ -103,17 +103,17 @@
 <script>
     const GetSongBetter = async () => {
     const response = await fetch('https://bh7q78usj3.execute-api.us-east-1.amazonaws.com/getRandomSong');
-    const myJson = await response.json();
-    console.log(myJson);
-    var songName = myJson.Song;
+    const returnedJson = await response.json();
+    console.log(returnedJson);
+    var songName = returnedJson.Song;
     document.getElementById('song').innerHTML = songName;
-    var artistName = myJson.Artist;
+    var artistName = returnedJson.Artist;
     document.getElementById('artist').innerHTML = artistName;
-    var albumName = myJson.Album;
+    var albumName = returnedJson.Album;
     document.getElementById('album').innerHTML = albumName;
-    var songYear = myJson.Year;
+    var songYear = returnedJson.Year;
     document.getElementById('year').innerHTML = songYear;
-    var songLink = myJson.YT;
+    var songLink = returnedJson.YT;
     document.getElementById('flink').src = "https://youtube.com/embed/"+ songLink;
     document.getElementById('flink').width = "560";
     document.getElementById('flink').height = "340";
