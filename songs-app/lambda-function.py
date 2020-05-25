@@ -4,6 +4,12 @@ import json
 import decimal
 from boto3.dynamodb.conditions import Key, Attr
 
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, decimal.Decimal):
+                return str(o)
+        return super(DecimalEncoder, self).default(o)
+
 def getRandomSong(event, context):
     firstId = 1
     lastId = 3
@@ -16,4 +22,5 @@ def getRandomSong(event, context):
         }
     )
     item = response['Item']
-    return item
+    jitem = json.dumps(item, indent=4, cls=DecimalEncoder)
+    return jitem

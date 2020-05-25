@@ -5,10 +5,11 @@ import decimal
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 
+# the below is from the AWS documentation, needs to be modified for what javascript will want to get back from the Lambda function (all string JSON)
 class DecimalEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, decimal.Decimal):
-            if o % 1 > 0:
+            if o % 1 > 0: #this check will not be needed, remove the if and make sure both float or int would be turned into str
                 return float(o)
             else:
                 return int(o)
@@ -40,7 +41,3 @@ else:
 print(item)
 print(type(item)) """
 
-"""above works to pull a specific item. What needs to happen:
-3. Improve the above boto3 and ddb code, using: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Python.03.html as a starting guide
-4. Pull the various key values from the "response" item (so pull the song name, artist, year, etc from the returned dictionary) and format better
-"""
