@@ -16,5 +16,5 @@ r = requests.get(URL, headers=headers)
 
 soup = BeautifulSoup(r.text, 'lxml')
 
-result = soup.find('div', class_='zloOqf PZPZlf')
-print(result.text)
+result = soup.find_all('span', class_ = 'LrzXr kno-fv')
+print(result)
