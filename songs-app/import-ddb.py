@@ -9,17 +9,17 @@ import time
 # command line arguments
 parser = argparse.ArgumentParser(
     description='Write CSV records to dynamo db table. CSV Header must map to dynamo table field names.')
-parser.add_argument('csvFile', help='songs-test.tsv')
-parser.add_argument('table', help='Songs')
-parser.add_argument('writeRate', default=1, type=string, nargs='?',
-                    help='Number of records to write in table per second (default:1)')
-parser.add_argument('delimiter', default='|', nargs='?', help='Delimiter for csv records (default=,)')
+parser.add_argument('csvFile', help='Path to csv file location')
+parser.add_argument('table', help='Dynamo db table name')
+parser.add_argument('writeRate', default=5, type=int, nargs='?',
+                    help='Number of records to write in table per second (default:5)')
+parser.add_argument('delimiter', default='=', nargs='?', help='Delimiter for csv records (default=,)')
 parser.add_argument('region', default='us-east-1', nargs='?', help='Dynamo db region name (default=us-west-2')
 args = parser.parse_args()
 print(args)
 
 # dynamodb and table initialization
-endpointUrl = "https://dynamodb.us-west-2.amazonaws.com"
+endpointUrl = "https://dynamodb.us-east-1.amazonaws.com"
 dynamodb = boto3.resource('dynamodb', region_name=args.region, endpoint_url=endpointUrl)
 table = dynamodb.Table(args.table)
 
