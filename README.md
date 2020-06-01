@@ -1,5 +1,5 @@
 # pigantibiotics.com
-Website files for my personal website pigantibiotics.co
+Website files for my personal website pigantibiotics.com
 
 ### Components
 * Jekyll site for easy template application
