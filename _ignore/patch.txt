@@ -1,0 +1,27 @@
+
+<button class="button  is-primary" type="submit" onclick="GetSongBetter()">Get a random song!</button>
+<p></p>
+<p><b>Song: </b><span id="song"></span></p>
+<p><b>Artist: </b><span id="artist"></span></p>
+<p><b>Album: </b><span id="album"></span> <span id="year"></span></p>
+<iframe id="flink" width = "1" height = "1"></iframe>
+
+<script>
+    const GetSongBetter = async () => {
+    const response = await fetch('https://bh7q78usj3.execute-api.us-east-1.amazonaws.com/getRandomSong');
+    const returnedJson = await response.json();
+    console.log(returnedJson);
+    var songName = returnedJson.Song;
+    document.getElementById('song').innerHTML = songName;
+    var artistName = returnedJson.Artist;
+    document.getElementById('artist').innerHTML = artistName;
+    var albumName = returnedJson.Album;
+    document.getElementById('album').innerHTML = albumName;
+    var songYear = returnedJson.Year;
+    document.getElementById('year').innerHTML = songYear;
+    var songLink = returnedJson.YT;
+    document.getElementById('flink').src = "https://youtube.com/embed/"+ songLink;
+    document.getElementById('flink').width = "560";
+    document.getElementById('flink').height = "340";
+  }
+</script>

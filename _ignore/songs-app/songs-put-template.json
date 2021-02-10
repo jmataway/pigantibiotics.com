@@ -1,0 +1,28 @@
+{
+    "Songs": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "ID": {"N":""},
+                    "Song": {"S":""},
+                    "Artist": {"S":""},
+                    "Album": {"S":""},
+                    "Year": {"S":""},
+                    "YT": {"S":""}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "ID": {"N":""},
+                    "Song": {"S":""},
+                    "Artist": {"S":""},
+                    "Album": {"S":""},
+                    "Year": {"N":""},
+                    "YTLink": {"S":""}
+                }
+            }
+        }
+    ]
+}

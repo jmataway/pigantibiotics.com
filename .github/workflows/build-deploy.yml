@@ -1,0 +1,37 @@
+# Build and Deploy workflow
+
+name: CI/CD
+
+on:
+  #push:
+  #  branches: [ master ]
+
+  # Manual run option
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  jekyll:
+    name: Build and deploy Jekyll site
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build
+      uses: dVerschaeve/jekyll-build-action@a96f644b84c6ae080f1a4bb0818bf058fd7ea192
+
+    - name: Patch
+      run: sed -i '/Get a random song/r _ignore/patch.txt' _site/random-song.html
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Sync output to S3
+      run: |
+        aws s3 sync ./_site/ s3://pigantibiotics.com --delete
